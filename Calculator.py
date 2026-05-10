@@ -9,9 +9,18 @@ from pydantic import BaseModel
 app = FastAPI()
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
+# Global history storage (in production, this would be a database)
+calculation_history = []
+
 
 class ExpressionRequest(BaseModel):
     expression: str
+
+
+class HistoryItem(BaseModel):
+    expression: str
+    result: float
+    timestamp: str
 
 
 class SafeEvalVisitor(NodeVisitor):
@@ -57,6 +66,19 @@ def evaluate_expression(expression: str) -> float:
     return result
 
 
+def add_to_history(expression: str, result: float) -> None:
+    """Add a successful calculation to history."""
+    from datetime import datetime
+
+    history_item = HistoryItem(
+        expression=expression, result=result, timestamp=datetime.now().isoformat()
+    )
+    calculation_history.insert(0, history_item)  # Add to beginning
+    # Keep only last 50 calculations
+    if len(calculation_history) > 50:
+        calculation_history.pop()
+
+
 @app.get("/")
 async def serve_ui() -> FileResponse:
     return FileResponse("static/index.html")
@@ -66,6 +88,8 @@ async def serve_ui() -> FileResponse:
 async def calculate(request: ExpressionRequest) -> JSONResponse:
     try:
         result = evaluate_expression(request.expression)
+        # Add successful calculation to history
+        add_to_history(request.expression, result)
     except Exception as exc:
         raise HTTPException(status_code=400, detail=str(exc))
 
@@ -80,10 +104,27 @@ async def calculate_get(expression: Optional[str] = None) -> JSONResponse:
         )
     try:
         result = evaluate_expression(expression)
+        # Add successful calculation to history
+        add_to_history(expression, result)
     except Exception as exc:
         raise HTTPException(status_code=400, detail=str(exc))
 
     return JSONResponse(content={"result": result, "expression": expression})
+
+
+@app.get("/api/history")
+async def get_history() -> JSONResponse:
+    """Get calculation history."""
+    return JSONResponse(
+        content={"history": [item.dict() for item in calculation_history]}
+    )
+
+
+@app.delete("/api/history")
+async def clear_history() -> JSONResponse:
+    """Clear all calculation history."""
+    calculation_history.clear()
+    return JSONResponse(content={"message": "History cleared"})
 
 
 if __name__ == "__main__":

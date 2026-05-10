@@ -18,6 +18,15 @@ body {
     sans-serif;
 }
 
+.calculator-container {
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+  max-width: 900px;
+  width: 100%;
+  padding: 2rem;
+}
+
 .calculator-shell {
   width: min(380px, 100%);
   padding: 1.6rem;
@@ -25,6 +34,27 @@ body {
   background: rgba(20, 26, 55, 0.92);
   border: 1px solid rgba(255, 255, 255, 0.08);
   box-shadow: 0 30px 80px rgba(0, 0, 0, 0.35);
+}
+
+.calculator-header {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 1rem;
+}
+
+.history-toggle {
+  background: rgba(255, 255, 255, 0.08);
+  border: none;
+  border-radius: 12px;
+  padding: 0.5rem;
+  color: #eef2ff;
+  cursor: pointer;
+  font-size: 1.2rem;
+  transition: background-color 0.15s ease;
+}
+
+.history-toggle:hover {
+  background: rgba(255, 255, 255, 0.14);
 }
 
 .calculator-screen {
@@ -89,4 +119,89 @@ body {
 
 .key--wide {
   grid-column: span 2;
+}
+
+.history-panel {
+  width: 300px;
+  background: rgba(20, 26, 55, 0.92);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 24px;
+  padding: 1.5rem;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.35);
+  max-height: 600px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.history-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.history-header h3 {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.clear-history {
+  background: none;
+  border: none;
+  color: #ef4444;
+  cursor: pointer;
+  font-size: 1rem;
+  padding: 0.25rem;
+  border-radius: 6px;
+  transition: background-color 0.15s ease;
+}
+
+.clear-history:hover {
+  background: rgba(239, 68, 68, 0.1);
+}
+
+.history-list {
+  flex: 1;
+  overflow-y: auto;
+  max-height: 500px;
+}
+
+.history-item {
+  padding: 0.75rem;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  margin-bottom: 0.5rem;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+  border: 1px solid transparent;
+}
+
+.history-item:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.history-expression {
+  font-size: 0.9rem;
+  color: #94a3b8;
+  margin-bottom: 0.25rem;
+  word-break: break-all;
+}
+
+.history-result {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #f8fafc;
+  text-align: right;
+}
+
+.history-empty {
+  text-align: center;
+  color: #64748b;
+  font-style: italic;
+  padding: 2rem;
 }

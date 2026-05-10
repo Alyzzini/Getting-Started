@@ -7,38 +7,68 @@
     <link rel="stylesheet" href="/static/styles.css" />
   </head>
   <body>
-    <div class="calculator-shell">
-      <div class="calculator-screen">
-        <div class="calculator-display" id="output">0</div>
+    <div class="calculator-container">
+      <div class="calculator-shell">
+        <div class="calculator-header">
+          <button
+            type="button"
+            class="history-toggle"
+            id="historyToggle"
+            title="Toggle History"
+          >
+            📚
+          </button>
+        </div>
+
+        <div class="calculator-screen">
+          <div class="calculator-display" id="output">0</div>
+        </div>
+
+        <div class="calculator-keypad" role="grid">
+          <button type="button" class="key key--wide" data-action="clear">
+            C
+          </button>
+          <button type="button" class="key" data-action="back">⌫</button>
+          <button type="button" class="key key--op" data-value="/">÷</button>
+          <button type="button" class="key key--op" data-value="*">×</button>
+
+          <button type="button" class="key" data-value="7">7</button>
+          <button type="button" class="key" data-value="8">8</button>
+          <button type="button" class="key" data-value="9">9</button>
+          <button type="button" class="key key--op" data-value="-">−</button>
+
+          <button type="button" class="key" data-value="4">4</button>
+          <button type="button" class="key" data-value="5">5</button>
+          <button type="button" class="key" data-value="6">6</button>
+          <button type="button" class="key key--op" data-value="+">+</button>
+
+          <button type="button" class="key" data-value="1">1</button>
+          <button type="button" class="key" data-value="2">2</button>
+          <button type="button" class="key" data-value="3">3</button>
+          <button type="button" class="key key--accent" data-action="equals">
+            =
+          </button>
+
+          <button type="button" class="key key--wide" data-value="0">0</button>
+          <button type="button" class="key" data-value=".">.</button>
+        </div>
       </div>
 
-      <div class="calculator-keypad" role="grid">
-        <button type="button" class="key key--wide" data-action="clear">
-          C
-        </button>
-        <button type="button" class="key" data-action="back">⌫</button>
-        <button type="button" class="key key--op" data-value="/">÷</button>
-        <button type="button" class="key key--op" data-value="*">×</button>
-
-        <button type="button" class="key" data-value="7">7</button>
-        <button type="button" class="key" data-value="8">8</button>
-        <button type="button" class="key" data-value="9">9</button>
-        <button type="button" class="key key--op" data-value="-">−</button>
-
-        <button type="button" class="key" data-value="4">4</button>
-        <button type="button" class="key" data-value="5">5</button>
-        <button type="button" class="key" data-value="6">6</button>
-        <button type="button" class="key key--op" data-value="+">+</button>
-
-        <button type="button" class="key" data-value="1">1</button>
-        <button type="button" class="key" data-value="2">2</button>
-        <button type="button" class="key" data-value="3">3</button>
-        <button type="button" class="key key--accent" data-action="equals">
-          =
-        </button>
-
-        <button type="button" class="key key--wide" data-value="0">0</button>
-        <button type="button" class="key" data-value=".">.</button>
+      <div class="history-panel" id="historyPanel">
+        <div class="history-header">
+          <h3>History</h3>
+          <button
+            type="button"
+            class="clear-history"
+            id="clearHistory"
+            title="Clear History"
+          >
+            🗑️
+          </button>
+        </div>
+        <div class="history-list" id="historyList">
+          <div class="history-empty">No calculations yet</div>
+        </div>
       </div>
     </div>
 
