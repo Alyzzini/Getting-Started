@@ -1,0 +1,13 @@
+# Generated Python files
+__pycache__/
+*.py[cod]
+
+# Local secrets and environment settings
+.env
+.env.*
+!.env.example
+!.env.sample
+*.pem
+*.key
+.venv/
+venv/
